@@ -1,0 +1,150 @@
+<!--주석-->
+<html>
+<head>
+    <!--html 문서의 메타 정보 담당 : 문서제목, 인코딩, 검색시 키워드, 파비콘(대표심볼)
+    css, js 파일을 외부에서 html에 삽입할 때
+    -->
+    <!--jQuery라는 프레임웍을 활용하여 요소찾기, css 적용등을 동적으로 처리(간단하게)
+    이 행위를 통해서 css selector가 잘 작동하는지 점검
+
+    JS는 <head>내부, 조작하고자 하는 요소(element)바로 밑, <body>태그 닫히기 직전
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> 
+</head>
+<body>
+    <!--body는 화면에 보이는 영역-->
+    <h1>헤드라인, 대분류</h1>
+    <h1 class = 'gr'>블루보틀</h1>
+    <h1 id = 'bb'>블루보틀2</h1>
+    <h2 class="gr"> 그린 스타일 </h2>
+    <!-- 영역표시 : 공간은 차지하지 않지만, 영역은 가지고 있다(div 등) -->
+    <div>
+        <!--리스트(ul)-->
+        <ul>
+            <li>HTML5</li>
+            <li>CSS3</li>
+            <li>Javascript < ES NEXT < TypeScript </li>
+            <li>
+                백엔드
+                <ol>
+                    <li>Spring Boot, dJango</li>
+                    <li>node, flask, fastapi</li>
+                </ol>
+            </li>
+        </ul>
+    </div>
+   <!--테이블 : html 상에서 정보/데이터를 가장 많이 표현하는 방법-->
+   <table border = 1 id = "starbucks">
+        <!-- 테이블의 컬럼명 나열되는 포지션 -->
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+            </tr>
+        </thead>
+        <!-- 테이블의 데이터가 세팅되는 포지션 -->
+        <tbody>
+            <tr>
+                <th>1</th>
+                <th>스타벅스 공덕역점</th>
+            </tr>
+            <tr>
+                <th>2</th>
+                <th>스타벅스 마포역점</th>
+            </tr>
+            <tr>
+                <th>3</th>
+                <th>스타벅스 여의도점</th>
+            </tr>
+            <tr>
+                <th>4</th>
+                <th>스타벅스 홍대점</th>
+            </tr>
+            <tr>
+                <th>5</th>
+                <th>스타벅스 광화문점</th>
+            </tr>
+        </tbody>
+   </table>
+
+    <script>
+        // 한 줄 주석
+        /* 여러 줄 주석 */
+        // js -> 특정해라(css selector or xpath) -> 조작(통신)해라
+        // jQuery에서 요소를 특정하는 문법(틀) $('css selector')
+
+        // 0. 모든 요소 => * => 모든 요소의 글자색은 검정색으로 지정
+        $('*').css('color', 'black')
+
+        // 1. 요소명 => 태그의 이름을 그대로 사용 => 문서상에 존재하는 모든 요소를 찾아서
+        // console.log($('h1'))
+        // 이 문서(html)상에 존재하는 모든 h1 요소를 찾아서 글자색을 red로 적용
+        // document.querySelectorAll('hi') == $('h1') : html5 작성 방식, jQuery가 훨씬 간단함
+        $('h1').css('color', 'red')
+
+        // 2. 아이디값 => html 문서내에서는 고유한 값을 가진다(암묵적 동의)
+        // 특정 방법 : #아이디값
+        // 아이디는 원래 문서상에서 특정 위치를 표현하는 표식, 클릭 -> 문서 내 점프이동
+        // document.querySelector('hi') == $('#bb')
+        $('#bb').css('color', 'blue')
+
+        // 3. 클래스값 => html에서 클레스는 하나의 스타일을 여러 요소에 동일하게 적용할 때 사용
+        // 특정 방법 : .클레스값
+        // 클래스는 여러 요소에 공통된 스타일을 적용하는 css적인 요소
+        // 문서내에서 고유하지는 않다(여러 요소에서 사용될 수 있다)
+        // 고유하면 단독사용, 고유하지 않으면 조합사용 요소.클래스값
+        $('.gr').css('color', 'green')
+
+        // 4. 조합
+        //  요소명#아이디 => 의미는 없다 그냥 "#아이디"만 사용
+        // 요소명.클래스 => 여러 다른 요소에 클레스가 적용될 수 있기때문에, 좀 더 타겟팅이 가능하다.
+        // h2요소들 중에서 class가 gr인 요소만 특정
+        $('h2.gr').css('color', 'pink')
+
+        // 5. 서열
+        // 태그 아래 태그에 접속하기 위함!
+        //      직계(부모와 자식) 
+        //      부모 > 자식 or 부모>자식 
+        // ul의 *직계 자식* li에게만 배경색을 노랑색으로 부여해보자!
+        $('ul>li').css('color', 'magenta')
+
+        //  후손(부모와 손자, 그 밑으로 다, 자식도 포함된다)
+        //      부모 후손
+        // ul 밑에 있는 모든 후손
+        $('ul li').css('color', 'lightgray')
+
+        // 6. 나열
+        //      대상이 되는 요소들을, 구분자로 해서 나열한다.
+        $('h1.gr, ol>li').css('background', 'yellow')
+
+        // 7. 의사결정 셀렉터
+        //    반복되는 요소에 순서정보를 이용하여 특정하는 방법
+        //    요소가 계속해서 주기적으로 나오는데, id도 없고 클래스도 없고 서열만 있음(형제들만 많음)! (특정할 수 있는게 안보임) -> 이런것들은 주로 테이블이다!
+        //    요소(특정방식은 위에것 사용도  OK) : (first|last|odd|even|lt(2)|gt(2)|eq(3)|nth-child(3))
+        //    first : 첫째, last : 막내, odd : 홀수, even : 짝수, lt(n) : n보자 적은, 
+        $('#starbucks th:first').css('color', 'red')
+        $('#starbucks th:last').css('color', 'red') 
+        // 아이디가 starbucks안에 존재하는 모든 td, 후손 관계니까 한칸 공백, 첫째만 색상 부여
+
+        // 7-1 1. 스타벅스 광화문점 배경색을 노란색으로 처리
+        $("#starbucks > tbody > tr:last").css('background','yellow')
+
+        // 7-1 2. 홀수번째만 색상을 줘보자 (odd)
+        $("#starbucks > tbody > tr:odd").css('background','lightgray')
+
+        // 7-1 3. 홀수번째만 색상을 줘보자 (even)
+        $("#starbucks > tbody > tr:even").css('background','lightgreen')
+
+        // 7-1 4. lt(하위), gt(상위)
+        $("#starbucks > tbody > td:lt(3)").css('background','skyblue')
+        $("#starbucks > tbody > td:gt(3)").css('background','green')
+
+        // 7-1 4. eq(2) : 0부터 체크 = 3번째 값 특정
+        $("#starbucks > tbody > td:eq(2)").css('color','red')
+
+        // 7-1 4. nth-child(2) -> nth-of-type()로 대체 표현 : 0부터 체크 = 3번째 값 특정
+        $("#starbucks > tbody > td:nth-child(2)").css('color','green')
+
+</script>
+</body>
+</html>
